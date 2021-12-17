@@ -1,0 +1,27 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint:markdown": "markdownlint '**/*.md' --ignore node_modules",
+    "lint:prettier": "pretty-quick",
+    "lint": "npm run lint:markdown && npm run lint:prettier"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VoxCrafterLP/blog.git"
+  },
+  "author": "VoxCrafter_LP",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/VoxCrafterLP/blog/issues"
+  },
+  "homepage": "https://github.com/VoxCrafterLP/blog#readme",
+  "devDependencies": {
+    "markdownlint": "^0.24.0",
+    "markdownlint-cli": "^0.30.0",
+    "prettier": "^2.5.1",
+    "pretty-quick": "^3.1.2"
+  }
+}
