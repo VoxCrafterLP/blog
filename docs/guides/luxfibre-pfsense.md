@@ -148,5 +148,8 @@ able to watch live tv.
 
     Install the Service_Watchdog package and add the IGMP proxy to the monitored services.
 
+### Known issues
 
-
+Some low-end devices may experience connection timeouts because of the multicast packages. You can counteract this
+by enabling IGMP-Snooping on your switches or separating the multicast traffic by creating a dedicated network for
+your Set-Top boxes.
