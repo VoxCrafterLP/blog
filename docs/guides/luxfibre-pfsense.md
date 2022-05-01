@@ -55,7 +55,7 @@ Put in the configuration below:
     === "DHCP6 Client Configuration"
     
         * Use IPv4 connectivity as parent interface: checked
-        * DHCPv6 Prefix Delegation size: 48
+        * DHCPv6 Prefix Delegation size: 56
 
     === "PPPoE Configuration"
 
