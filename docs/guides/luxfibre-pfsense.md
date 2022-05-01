@@ -28,20 +28,20 @@ graph LR
 
 !!! Important 
 
-    To follow along, you will need your PPOE username and password! You can get them by simply calling the POST support
-    and ask.
+    To follow along, you will need your PPPOE username and password! You can get them by simply calling the POST support
+    and asking for it.
 
 ## Set up an internet connection
 
 ### Configure VLAN
 
-First, you have to go the Firewall tab and add a new VLAN under VLANs. Under parent interface, select the
-interface that's connected to the modem. Under VLAN Tag put in the number 35, as it's the VLAN POST operates on,
-Last, you can give it a simple description like ^^Luxfibre VLAN^^.
+First, you have to go the firewall tab and add a new VLAN under VLANs. Under parent interface, select the
+interface that's connected to the modem. Under VLAN tag put in the number 35, as it's the VLAN POST operates on.
+Lastly, you can give it a simple description like ^^Luxfibre VLAN^^.
 
 ### Add interface assignment
 
-Switch to the *interface assignments* tab and select the created VLAN as the network port for the WAN interface.
+Switch to the *interface assignments* tab and select the created VLAN as the network port of the WAN interface.
 <br>
 Put in the configuration below:
 
@@ -59,20 +59,18 @@ Put in the configuration below:
 
     === "PPPoE Configuration"
 
-        * Username: <your pppoe username\>
-        * Password: <your pppoe password\>
+        * Username: <your PPPOE username\>
+        * Password: <your PPPOE password\>
         * Dial on demand: unchecked
 
     === "Reserved Networks"
 
-        ``` markdown
-            * Block private networks and loopback addresses: checked
-            * Block bogon networks: checked
-        ```
+        * Block private networks and loopback addresses: checked
+        * Block bogon networks: checked
 
-Save and edit the pppoe interface on the PPPs tab, verify that the Luxfibre VLAN is selected.
+Save and edit the PPPOE interface in the PPPs tab and verify that the Luxfibre VLAN is selected.
 <br><br>
-At this point, the router should have picked up an ip, and you should already see traffic on the dashboard. If it doesn't
+At this point, the router should have picked up an IP address, and you should already see traffic on the dashboard. If it doesn't
 connect immediately, wait up to 5 minutes and check whether you followed the steps above.
 
 ??? Tip
@@ -101,13 +99,13 @@ Now, we will focus on setting up the Fritz!Box as a VOIP client running behind t
 
 To add an interface for IPTV, go to the *interface assignments* tab and add a new interface with the VLAN 35 selected
 as the network port. You can give the interface a recognizable name such as ```IPTV```.
-Then set the IPv4 configuration type to static and ipv6 to none. Give the interface a static
-ip of ```10.10.10.10``` with a bitmask of ```32```. Make sure that private networks are ^^NOT^^ blocked.
+Then set the IPv4 configuration type to static and IPv6 to none. Give the interface a static
+IP address of ```10.10.10.10``` with a mask of ```32```. Make sure that private networks are ^^NOT^^ blocked.
 
 ### Firewall rules
 
-In this section we will add the required firewall rules for IPTV. To do so, switch to IPTV tab in the firewall rules.
-Then add the following rules.
+In this section we will add the required firewall rules for IPTV. To do so, switch to the IPTV tab in the firewall
+rules. Then add the following rules.
 
 !!! example "Firewall rules"
 
@@ -138,15 +136,15 @@ First, add a proxy for your IPTV interface of type ```upstream```. Add the netwo
 networks list.
 <br>
 Then add a second proxy of type ```downstream```. Select the interface which is connected to your Set-Top box.
-Add the IP of your Set-Top box with the bitmask of ```32``` as your network or if you have multiple boxes the
+Add the IP address of your Set-Top box with the mask of ```32``` as your network or if you have multiple boxes the
 corresponding subnet.
 <br><br>
-Lastly, you have to enable the IGMP proxy in the general igmp options and start the service. By now you should be
-able to watch live tv.
+Lastly you have to enable the IGMP proxy in the general IGMP options and start the service. By now you should be
+able to watch live TV.
 
-??? tip
+??? Tip
 
-    Install the Service_Watchdog package and add the IGMP proxy to the monitored services.
+    Install the *Service_Watchdog* package and add the IGMP proxy to the monitored services.
 
 ### Known issues
 
