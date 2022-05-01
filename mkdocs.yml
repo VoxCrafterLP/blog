@@ -1,7 +1,7 @@
 site_name: VoxBlog
 site_url: https://blog.voxcrafter.dev/
 
-copyright: Copyright &copy; 2021 VoxCrafter_LP
+copyright: Copyright &copy; 2022 VoxCrafter_LP
 
 theme:
   name: material
@@ -43,6 +43,9 @@ plugins:
   - blog
   - search
 
+extra_javascript:
+  - https://unpkg.com/mermaid/dist/mermaid.min.js
+
 markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
@@ -73,4 +76,8 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
