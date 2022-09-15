@@ -5,6 +5,7 @@ copyright: Copyright &copy; 2021 - 2022 VoxCrafter_LP
 
 theme:
   name: material
+  custom_dir: overrides
   features:
     - content.code.annotate
     - navigation.instant
