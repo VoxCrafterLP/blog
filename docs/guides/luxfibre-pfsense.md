@@ -56,6 +56,7 @@ Put in the configuration below:
     
         * Use IPv4 connectivity as parent interface: checked
         * DHCPv6 Prefix Delegation size: 56
+        * Send IPv6 prefix hint: checked 
 
     === "PPPoE Configuration"
 
@@ -80,18 +81,84 @@ connect immediately, wait up to 5 minutes and check whether you followed the ste
 
 ## Set up VOIP
 
-This section is not finished yet.
-
-<!---
-
 Now, we will focus on setting up the Fritz!Box as a VOIP client running behind the pfSense.
 
 ### Fritz!Box configuration
 
+!!! info
+
+    In order to perform the configuration on the Fritz!Box, you need to use a device connected to LAN interface of the 
+    Fritz!Box.
+
+!!! warning "Important"
+    
+    Do not reset your current Fritz!Box configuration as this would result in loosing your VOIP config!
+
+First, you need to go to `Internet > Account Information` and switch your internet service provider to 
+`other internet service provider`. Now you can give your ISP a name e.g `pfSense`.
+<br>
+Set the connection type to `Connection to an external modem or router`. This tells the Fritz!Box to use LAN 1 as
+the connection to your pfSense box.
+Set the operating mode to 'Establish own connection to internet' and select `No` as a requirement for account 
+information. Optionally, you can specify your internet connection speed in the data throughput settings.
+<br>
+Now for the fun part, select the manual IP address configuration and put in a static IP for your Fritz!Box in your
+home network. Put your pfSense IP into the gateway and DNS fields. Now click `Apply`.
+Next, you will have to go to the `DNS Server` tab and also put in your pfSense IP.
+
+
+After setting up the WAN configuration, you'll have to set your LAN configuration. 
+Go to `Home Network > Network Settings` and make sure that `Internet router` is selected.
+Scroll down to `IP Addresses` and click on the IPv4 settings, then put in the following configuration:
+
+!!! example "Configuration"
+
+    === "Home Network"
+        
+        * IPv4 address: 192.168.0.1
+        * Subnet mask: 255.255.255.0
+    
+    === "DHCP server"
+    
+        * from: 192.168.0.20
+        * to: 192.168.0.200
 
 ### pfSense configuration
 
--->
+First, create a firewall alias for the ports we'll we using. Go to `Firewall > Aliases > Ports`. Add a new alias
+with the name `VoIP_ports` and the following list of ports:
+
+- Port `5060` - Description: `SIP`
+- Port `7078:7109` - Description: `RTP`
+
+Now, go to the `Firewall > NAT > Port Forward` tab and add a new rule:
+
+- Interface: WAN
+- Address Family: IPv4
+- Protocol: TCP/UDP
+- Destination: WAN address
+- Destination port range: `VoIP_ports`, `Other`, `VoIP_ports`
+- Redirect target IP: `Single host`, `Static IP of your Fritz!Box`
+- Redirect target port: `Òther`, `VoIP_ports`
+- Description: VoIP WAN2FritzBox
+- Filter rile association: Pass
+
+Next, you need to switch to the `Outbound` tab and set the NAT mode to `Hybrid`.
+Then, add a mapping with the following configuration:
+
+- Interface: WAN
+- Address Family: IPv4+IPv6
+- Protocol: any
+- Source: Network, `Static IP of your Fritz!Box`/32, `VoIP_ports`
+- Destination: any
+
+### Troubleshooting
+
+By now, you should be able to connect to your Fritz!Box dashboard and see that your telephone number should be active 
+by now. If not, try giving it a quick restart or wait for a couple of minutes. If that didn't solve the problem, go 
+back and check whether you followed the previous steps correctly. Check if your Fritz!Box has still got the telephone 
+configuration in it. If not, you have to reset your Fritz!Box and reconnect it to the modem for it to pick up the 
+original configuration again.
 
 ## Set up IPTV
 
