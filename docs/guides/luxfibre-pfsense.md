@@ -139,9 +139,9 @@ Now, go to the `Firewall > NAT > Port Forward` tab and add a new rule:
 - Destination: WAN address
 - Destination port range: `VoIP_ports`, `Other`, `VoIP_ports`
 - Redirect target IP: `Single host`, `Static IP of your Fritz!Box`
-- Redirect target port: `Òther`, `VoIP_ports`
+- Redirect target port: `Other`, `VoIP_ports`
 - Description: VoIP WAN2FritzBox
-- Filter rile association: Pass
+- Filter rule association: Pass
 
 Next, you need to switch to the `Outbound` tab and set the NAT mode to `Hybrid`.
 Then, add a mapping with the following configuration:
@@ -159,6 +159,11 @@ by now. If not, try giving it a quick restart or wait for a couple of minutes. I
 back and check whether you followed the previous steps correctly. Check if your Fritz!Box has still got the telephone 
 configuration in it. If not, you have to reset your Fritz!Box and reconnect it to the modem for it to pick up the 
 original configuration again.
+
+
+??? note 
+
+    The POST support won't be able to connect to your Fritz!Box anymore.
 
 ## Set up IPTV
 
